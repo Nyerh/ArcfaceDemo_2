@@ -1,0 +1,73 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateAlwaysHidden</item>
+    </style>
+
+    <style name="TranslucentTheme" parent="AppTheme">
+        <!--在Android 4.4之前的版本上运行，直接跟随系统主题-->
+    </style>
+    <style name="text_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="text_blue" parent="text_base">
+        <item name="android:textColor">@color/library_blue</item>
+    </style>
+    <style name="text_black" parent="text_base">
+        <item name="android:textColor">@color/library_color_3</item>
+    </style>
+
+    <style name="text_gray" parent="text_base">
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
+    <style name="text_bar" parent="text_base">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="text_bar_title" parent="text_bar">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="text_key" parent="text_base">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/library_color_5</item>
+    </style>
+
+    <style name="text_value" parent="text_base">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">5</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/library_color_3</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="divider_v">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/library_color_b</item>
+    </style>
+    <style name="divider_h">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/library_color_b</item>
+    </style>
+</resources>

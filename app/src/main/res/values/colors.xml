@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/library_blue</color>
+    <color name="colorPrimaryDark">@color/library_blue</color>
+    <color name="colorAccent">@color/library_blue</color>
+    <color name="library_color_3">#ff333333</color>
+    <color name="library_color_4">#ff444444</color>
+    <color name="library_color_5">#ff555555</color>
+    <color name="library_color_6">#ff666666</color>
+    <color name="library_color_7">#ff777777</color>
+    <color name="library_color_8">#ff888888</color>
+    <color name="library_color_9">#ff999999</color>
+    <color name="library_color_9a">#ff9a9a9a</color>
+    <color name="library_color_b">#ffbbbbbb</color>
+    <color name="library_color_d2">#ffd2d2d2</color>
+    <color name="library_color_f7">#fff7f7f7</color>
+    <color name="library_color_f6">#fff6f6f6</color>
+    <color name="library_color_f5">#fff5f5f5</color>
+    <color name="library_color_ef">#ffefefef</color>
+    <color name="library_color_e">#ffeeeeee</color>
+    <color name="library_color_ec">#ffececec</color>
+    <color name="library_color_e9">#ffe9e9e9</color>
+    <color name="library_blue">#1D82D2</color>
+
+</resources>
