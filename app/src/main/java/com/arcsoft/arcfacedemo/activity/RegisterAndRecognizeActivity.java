@@ -204,7 +204,6 @@ public class RegisterAndRecognizeActivity extends BaseBarActivity implements Vie
         Log.i(TAG, "initEngine:  init: " + afCode + "  version:" + versionInfo);
 
         if (afCode != ErrorInfo.MOK) {
-//            Toast.makeText(this, getString(R.string.init_failed, afCode), Toast.LENGTH_SHORT).show();
             activeEngine();
 
         }

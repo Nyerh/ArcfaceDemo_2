@@ -52,6 +52,7 @@ import com.arcsoft.face.LivenessInfo;
 import com.arcsoft.face.VersionInfo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -66,6 +67,12 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 /**
  * Created by NYERH on 2019/4/9.
  */
@@ -137,15 +144,7 @@ public class LoginByFaceActivity extends BaseBarActivity implements ViewTreeObse
         setContentView(R.layout.activity_register_and_recognize);
         //保持亮屏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         setTitleText("人脸识别登录");
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            WindowManager.LayoutParams attributes = getWindow().getAttributes();
-//            attributes.systemUiVisibility = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-//            getWindow().setAttributes(attributes);
-//        }
-
         // Activity启动后就锁定为启动时的方向
         switch (getResources().getConfiguration().orientation) {
             case Configuration.ORIENTATION_PORTRAIT:
@@ -159,7 +158,6 @@ public class LoginByFaceActivity extends BaseBarActivity implements ViewTreeObse
         }
         //本地人脸库初始化
         FaceServer.getInstance().init(this);
-
         previewView = findViewById(R.id.texture_preview);
         //在布局结束后才做初始化操作
         previewView.getViewTreeObserver().addOnGlobalLayoutListener(this);
@@ -445,9 +443,7 @@ public class LoginByFaceActivity extends BaseBarActivity implements ViewTreeObse
                 .create(new ObservableOnSubscribe<CompareResult>() {
                     @Override
                     public void subscribe(ObservableEmitter<CompareResult> emitter) {
-//                        Log.i(TAG, "subscribe: fr search start = " + System.currentTimeMillis() + " trackId = " + requestId);
                         CompareResult compareResult = FaceServer.getInstance().getTopOfFaceLib(frFace);
-//                        Log.i(TAG, "subscribe: fr search end = " + System.currentTimeMillis() + " trackId = " + requestId);
                         if (compareResult == null) {
                             emitter.onError(null);
                         } else {
@@ -475,6 +471,9 @@ public class LoginByFaceActivity extends BaseBarActivity implements ViewTreeObse
                         if (compareResult.getSimilar() > SIMILAR_THRESHOLD) {
                             User user = DaoManager.getInstance().getDaoSession().getUserDao().queryBuilder().where(UserDao.Properties.Name.eq(compareResult.getUserName())).unique();
                             if (user != null) {
+                                //TODO 发送HTTP请求
+                                Long id = user.getId();
+                                sendRequestWithOkHtttp(id+"");
                                 App.getInstance().setUser(user);
                                 startActivity(MainActivity.class);
                                 finish();
@@ -504,10 +503,8 @@ public class LoginByFaceActivity extends BaseBarActivity implements ViewTreeObse
 //                            }
 //                            requestFeatureStatusMap.put(requestId, RequestFeatureStatus.SUCCEED);
 //                            faceHelper.addName(requestId, compareResult.getUserName());
-
                         } else {
                             requestFeatureStatusMap.put(requestId, RequestFeatureStatus.FAILED);
-//                            faceHelper.addName(requestId, "VISITOR " + requestId);
                         }
                     }
 
@@ -521,6 +518,34 @@ public class LoginByFaceActivity extends BaseBarActivity implements ViewTreeObse
 
                     }
                 });
+    }
+
+    //发送HTTP请求写入签到记录
+    public void sendRequestWithOkHtttp(String uId)
+    {
+        final String enterUId=uId;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Date date = new Date();
+                    OkHttpClient client = new OkHttpClient();
+                    RequestBody requestBody =new FormBody.Builder()
+                            .add("uId",enterUId)
+                            .add("signTime",date.toString())
+                            .build();
+                    Request request = new Request.Builder()
+                            .url("http://47.94.163.232:8081/signDetail/importDetail")
+                            .post(requestBody)
+                            .build();
+                    Response resp = client.newCall(request).execute();
+                    String s = resp.body().toString();
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 

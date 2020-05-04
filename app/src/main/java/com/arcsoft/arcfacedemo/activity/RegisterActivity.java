@@ -124,8 +124,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             bundle.putCharSequence(Constants.INTENT_KEY_NAME, name);
             startActivity(RegisterAndRecognizeActivity.class, bundle);
             finish();
-//            startWaitingDialog("正在初始化引擎");
-//            activeEngine();
         }
     }
 

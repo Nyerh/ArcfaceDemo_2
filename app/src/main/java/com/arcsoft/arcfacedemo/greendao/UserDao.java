@@ -48,8 +48,7 @@ public class UserDao extends AbstractDao<User, Long> {
     }
 
     /** Drops the underlying database table. */
-    public static void dropTable(Database db, boolean ifExists)
-    {
+    public static void dropTable(Database db, boolean ifExists) {
         String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"USER\"";
         db.execSQL(sql);
     }
